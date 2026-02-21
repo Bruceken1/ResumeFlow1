@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeFlow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-200 min-h-screen">
+
+    <div class="max-w-3xl mx-auto pt-16 px-6">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                ResumeFlow
+            </h1>
+            <p class="mt-3 text-xl text-gray-400">Turn good resumes into great ones</p>
+        </div>
+
+        <!-- Upload Card -->
+        <div id="upload-card" 
+             class="glass border border-gray-700 rounded-3xl p-12 text-center transition-all hover:border-blue-500 cursor-pointer">
+            <i class="fa-solid fa-cloud-arrow-up text-7xl text-blue-400 mb-6"></i>
+            <h2 class="text-2xl font-semibold mb-2">Drop your resume here</h2>
+            <p class="text-gray-400 mb-6">PDF format • Max 10MB</p>
+            <input type="file" id="file-input" accept=".pdf" class="hidden">
+            <button onclick="document.getElementById('file-input').click()" 
+                    class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-2xl font-medium transition">
+                Browse Files
+            </button>
+        </div>
+
+        <!-- File Info -->
+        <div id="file-info" class="hidden mt-6 bg-gray-900 border border-gray-700 rounded-2xl p-5 flex items-center gap-4">
+            <i class="fa-solid fa-file-pdf text-4xl text-red-400"></i>
+            <div class="flex-1">
+                <p id="filename" class="font-medium text-lg"></p>
+                <p id="filesize" class="text-sm text-gray-500"></p>
+            </div>
+            <button onclick="removeFile()" class="text-red-400 hover:text-red-500">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+
+        <!-- Job Description -->
+        <div class="mt-8">
+            <label class="block text-sm font-medium text-gray-400 mb-2">Job Description <span class="text-gray-500">(optional but recommended)</span></label>
+            <textarea id="job-desc" rows="5" 
+                class="w-full bg-gray-900 border border-gray-700 rounded-2xl p-5 focus:outline-none focus:border-blue-500 resize-none"
+                placeholder="Paste the job description here..."></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-4 mt-10">
+            <button onclick="optimizeResume()" 
+                    class="bg-gradient-to-r from-blue-600 to-indigo-600 py-5 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 hover:scale-105 transition">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Optimize Resume
+            </button>
+            
+            <button onclick="generateCover()" 
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 py-5 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 hover:scale-105 transition">
+                <i class="fa-solid fa-file-lines"></i>
+                Generate Cover Letter
+            </button>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden mt-16 text-center">
+            <div class="inline-flex items-center gap-3 bg-green-900/50 border border-green-700 rounded-2xl px-8 py-4">
+                <i class="fa-solid fa-circle-check text-green-400 text-2xl"></i>
+                <span class="text-green-400 font-medium">Your document is ready!</span>
+            </div>
+            <div class="mt-8 flex justify-center gap-6">
+                <a id="resume-link" href="#" class="hidden flex-col items-center hover:scale-105 transition">
+                    <div class="w-16 h-16 bg-blue-900/50 rounded-2xl flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-file-pdf text-3xl text-blue-400"></i>
+                    </div>
+                    <span class="text-sm text-gray-400">Optimized Resume</span>
+                </a>
+                <a id="cover-link" href="#" class="hidden flex-col items-center hover:scale-105 transition">
+                    <div class="w-16 h-16 bg-emerald-900/50 rounded-2xl flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-file-lines text-3xl text-emerald-400"></i>
+                    </div>
+                    <span class="text-sm text-gray-400">Cover Letter</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedFile = null;
+
+        const uploadCard = document.getElementById('upload-card');
+        const fileInput = document.getElementById('file-input');
+
+        uploadCard.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                uploadedFile = e.target.files[0];
+                document.getElementById('file-info').classList.remove('hidden');
+                document.getElementById('filename').textContent = uploadedFile.name;
+                document.getElementById('filesize').textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
+            }
+        });
+
+        function removeFile() {
+            uploadedFile = null;
+            document.getElementById('file-info').classList.add('hidden');
+            fileInput.value = '';
+        }
+
+        async function optimizeResume() {
+            if (!uploadedFile) return alert("Please upload your resume first");
+            await processFile('/optimize/', 'resume-link');
+        }
+
+        async function generateCover() {
+            if (!uploadedFile) return alert("Please upload your resume first");
+            await processFile('/generate-cover/', 'cover-link');
+        }
+
+        async function processFile(endpoint, linkId) {
+            const formData = new FormData();
+            formData.append('resume', uploadedFile);
+
+            const jobDesc = document.getElementById('job-desc').value.trim();
+            if (jobDesc) formData.append('job_description', jobDesc);
+
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(endpoint, { method: 'POST', body: formData });
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+
+                const link = document.getElementById(linkId);
+                link.href = url;
+                link.download = linkId === 'resume-link' ? 'optimized_resume.pdf' : 'cover_letter.pdf';
+                link.classList.remove('hidden');
+
+                document.getElementById('results').classList.remove('hidden');
+                document.getElementById('results').scrollIntoView({ behavior: "smooth" });
+            } catch (err) {
+                alert("Something went wrong. Please try again.");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

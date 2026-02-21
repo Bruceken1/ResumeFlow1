@@ -3,122 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeFlow - AI Resume Optimizer</title>
+    <title>ResumeFlow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap');
         
         body { font-family: 'Montserrat', sans-serif; }
-        h1, h2 { font-family: 'Kaushan Script', cursive; }
+        h1, h2, h3 { font-family: 'Kaushan Script', cursive; }
         
         .banner {
             background-size: cover;
             background-position: center;
-            transition: all 0.8s ease;
+            transition: all 1s ease;
         }
     </style>
 </head>
-<body class="bg-black text-white overflow-x-hidden">
+<body class="bg-black text-white">
 
-    <!-- Navigation -->
-    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="text-3xl font-bold text-white">ResumeFlow</div>
-            <nav class="hidden md:flex gap-8 text-sm uppercase tracking-widest">
-                <a href="#upload" class="hover:text-violet-400 transition">Get Started</a>
-                <a href="#how" class="hover:text-violet-400 transition">How it Works</a>
-                <a href="#contact" class="hover:text-violet-400 transition">Contact</a>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-wrapper">
+            <div class="main-logo text-3xl font-bold">ResumeFlow</div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="#upload">Get Started</a></li>
+                    <li><a href="#how">How it Works</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Slider (MoGo Style) -->
-    <section class="relative h-screen">
-        <input type="radio" id="slide1" name="slider" checked class="hidden">
-        <input type="radio" id="slide2" name="slider" class="hidden">
-        <input type="radio" id="slide3" name="slider" class="hidden">
+    <!-- Hero Slider (Your MoGo Style) -->
+    <section id="section-1">
+        <div class="content-slider">
+            <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
+            <input type="radio" id="banner2" class="sec-1-input" name="banner">
+            <input type="radio" id="banner3" class="sec-1-input" name="banner">
 
-        <div class="slider relative h-full">
-            <!-- Slide 1 -->
-            <div id="slide-content-1" class="banner absolute inset-0 flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070')]">
-                <div class="text-center z-10">
-                    <h1 class="text-7xl md:text-8xl font-light tracking-widest mb-6">Welcome to</h1>
-                    <h2 class="text-6xl md:text-7xl font-bold text-violet-400">ResumeFlow</h2>
-                    <p class="mt-8 text-xl text-gray-300 max-w-md mx-auto">AI that turns good resumes into exceptional ones</p>
-                    <a href="#upload" class="mt-12 inline-block bg-white text-black px-10 py-4 rounded-full font-semibold hover:bg-violet-400 hover:text-white transition">Get Started Now</a>
+            <div class="slider">
+                <!-- Slide 1 -->
+                <div id="top-banner-1" class="banner" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070')">
+                    <div class="banner-inner-wrapper">
+                        <h2>AI Resume Optimizer</h2>
+                        <h1>Welcome to<br>ResumeFlow</h1>
+                        <div class="line"></div>
+                        <a href="#upload" class="learn-more-button">Get Started</a>
+                    </div>
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70"></div>
+
+                <!-- Slide 2 -->
+                <div id="top-banner-2" class="banner" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070')">
+                    <div class="banner-inner-wrapper">
+                        <h2>Professional Results</h2>
+                        <h1>In Seconds</h1>
+                        <div class="line"></div>
+                        <a href="#upload" class="learn-more-button">Try Now</a>
+                    </div>
+                </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div id="slide-content-2" class="banner absolute inset-0 flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070')]">
-                <div class="text-center z-10">
-                    <h1 class="text-6xl md:text-7xl font-light">Professional</h1>
-                    <h2 class="text-6xl md:text-7xl font-bold text-amber-400">Results in Seconds</h2>
+            <!-- Slider Navigation -->
+            <nav>
+                <div class="controls">
+                    <label for="banner1"><span class="progressbar"><span class="progressbar-fill"></span></span><span>01</span> Intro</label>
+                    <label for="banner2"><span class="progressbar"><span class="progressbar-fill"></span></span><span>02</span> Results</label>
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80"></div>
-            </div>
-        </div>
-
-        <!-- Slider Controls -->
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-6 z-20">
-            <label for="slide1" class="cursor-pointer w-4 h-4 border-2 border-white rounded-full hover:bg-white transition"></label>
-            <label for="slide2" class="cursor-pointer w-4 h-4 border-2 border-white rounded-full hover:bg-white transition"></label>
+            </nav>
         </div>
     </section>
 
     <!-- Upload Section -->
     <section id="upload" class="py-24 bg-zinc-950">
         <div class="max-w-2xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">Ready to stand out?</h2>
-            <p class="text-gray-400 mb-12">Upload your resume and let AI make it shine</p>
+            <h2 class="text-5xl font-light mb-4">Upload Your Resume</h2>
+            <p class="text-gray-400 mb-12">Let AI make it stand out</p>
 
-            <div id="upload-area" class="border-4 border-dashed border-gray-700 hover:border-violet-500 rounded-3xl p-16 transition cursor-pointer">
-                <i class="fa-solid fa-cloud-arrow-up text-7xl text-violet-400 mb-6"></i>
-                <p class="text-2xl font-medium mb-2">Drop your resume PDF here</p>
+            <div id="upload-area" class="border-4 border-dashed border-gray-600 hover:border-white rounded-3xl p-20 transition cursor-pointer">
+                <i class="fa-solid fa-cloud-arrow-up text-7xl mb-6"></i>
+                <p class="text-2xl">Drop PDF here or click to browse</p>
                 <input type="file" id="file-input" accept=".pdf" class="hidden">
             </div>
 
-            <div id="file-info" class="hidden mt-8 bg-zinc-900 rounded-2xl p-6 flex items-center gap-6">
-                <i class="fa-solid fa-file-pdf text-5xl text-red-500"></i>
-                <div class="flex-1 text-left">
-                    <p id="filename" class="font-semibold"></p>
+            <div id="file-info" class="hidden mt-8 bg-zinc-900 p-6 rounded-3xl flex items-center gap-6">
+                <i class="fa-solid fa-file-pdf text-5xl text-red-400"></i>
+                <div>
+                    <p id="filename" class="font-medium"></p>
                     <p id="filesize" class="text-sm text-gray-500"></p>
                 </div>
-                <button onclick="removeFile()" class="text-red-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
             </div>
 
-            <div class="mt-10">
-                <textarea id="job-desc" rows="4" class="w-full bg-zinc-900 border border-gray-700 rounded-3xl p-6" 
-                    placeholder="Paste job description here (optional but recommended)"></textarea>
+            <div class="mt-12">
+                <textarea id="job-desc" rows="4" class="w-full bg-zinc-900 border border-gray-700 rounded-3xl p-6" placeholder="Paste job description (optional)"></textarea>
             </div>
 
             <div class="grid grid-cols-2 gap-6 mt-12">
-                <button onclick="optimizeResume()" class="bg-violet-600 hover:bg-violet-700 py-6 rounded-3xl font-semibold text-lg transition">
-                    Optimize Resume
-                </button>
-                <button onclick="generateCover()" class="bg-emerald-600 hover:bg-emerald-700 py-6 rounded-3xl font-semibold text-lg transition">
-                    Generate Cover Letter
-                </button>
+                <button onclick="optimizeResume()" class="bg-white text-black py-6 rounded-3xl font-semibold text-lg">Optimize Resume</button>
+                <button onclick="generateCover()" class="bg-white text-black py-6 rounded-3xl font-semibold text-lg">Generate Cover Letter</button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-16 border-t border-gray-800">
+    <footer id="main-footer" class="bg-black py-16 border-t border-gray-800">
         <div class="max-w-3xl mx-auto px-6 text-center">
             <p class="text-gray-400">Made with ❤️ by <strong>Bruce Ken</strong> • Mombasa, Kenya</p>
-            <p class="mt-2 text-sm text-gray-500">AI Resume Optimizer & Cover Letter Generator</p>
-            
-            <div class="mt-8">
-                <a href="https://buymeacoffee.com/bruceken" target="_blank" 
-                   class="inline-flex items-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-medium hover:bg-yellow-300 transition">
-                    <i class="fa-solid fa-mug-hot"></i>
-                    Buy Me a Coffee
+            <p class="mt-6">
+                <a href="https://buymeacoffee.com/bruceken" target="_blank" class="inline-flex items-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-medium">
+                    <i class="fa-solid fa-mug-hot"></i> Buy Me a Coffee
                 </a>
-            </div>
-            
+            </p>
             <p class="mt-12 text-xs text-gray-600">© 2026 Bruce Ken. All Rights Reserved.</p>
         </div>
     </footer>
@@ -126,7 +121,9 @@
     <script>
         let uploadedFile = null;
 
-        document.getElementById('upload-area').addEventListener('click', () => document.getElementById('file-input').click());
+        document.getElementById('upload-area').addEventListener('click', () => {
+            document.getElementById('file-input').click();
+        });
 
         document.getElementById('file-input').addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
@@ -137,18 +134,13 @@
             }
         });
 
-        function removeFile() {
-            uploadedFile = null;
-            document.getElementById('file-info').classList.add('hidden');
-        }
-
         async function optimizeResume() {
-            if (!uploadedFile) return alert("Please upload your resume first");
+            if (!uploadedFile) return alert("Upload your resume first");
             await processFile('/optimize/');
         }
 
         async function generateCover() {
-            if (!uploadedFile) return alert("Please upload your resume first");
+            if (!uploadedFile) return alert("Upload your resume first");
             await processFile('/generate-cover/');
         }
 
@@ -163,13 +155,12 @@
                 const res = await fetch(endpoint, { method: 'POST', body: formData });
                 const blob = await res.blob();
                 const url = URL.createObjectURL(blob);
-                
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = endpoint.includes('optimize') ? 'optimized_resume.pdf' : 'cover_letter.pdf';
                 a.click();
             } catch (err) {
-                alert("Something went wrong. Please try again.");
+                alert("Error occurred. Please try again.");
             }
         }
     </script>

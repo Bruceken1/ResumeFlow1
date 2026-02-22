@@ -24,36 +24,31 @@ templates = Jinja2Templates(directory="templates")
 # ====================== PAGES ======================
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "current_page": "home"})
-
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/features", response_class=HTMLResponse)
 def features(request: Request):
-    return templates.TemplateResponse("features.html", {"request": request, "current_page": "features"})
-
+    return templates.TemplateResponse("features.html", {"request": request})
 
 @app.get("/how-it-works", response_class=HTMLResponse)
 def how_it_works(request: Request):
-    return templates.TemplateResponse("how-it-works.html", {"request": request, "current_page": "how-it-works"})
-
+    return templates.TemplateResponse("how-it-works.html", {"request": request})
 
 @app.get("/pricing", response_class=HTMLResponse)
 def pricing(request: Request):
-    return templates.TemplateResponse("pricing.html", {"request": request, "current_page": "pricing"})
-
+    return templates.TemplateResponse("pricing.html", {"request": request})
 
 @app.get("/blog", response_class=HTMLResponse)
 def blog(request: Request):
-    return templates.TemplateResponse("blog.html", {"request": request, "current_page": "blog"})
-
+    return templates.TemplateResponse("blog.html", {"request": request})
 
 @app.get("/support", response_class=HTMLResponse)
 def support(request: Request):
-    return templates.TemplateResponse("support.html", {"request": request, "current_page": "support"})
+    return templates.TemplateResponse("support.html", {"request": request})
 
 
 # ====================== CONTACT FORM (Resend) ======================
-@app.post("/send-message/")
+@app.post("/send-message")          # ← No trailing slash (this fixes the error)
 async def send_message(
     name: str = Form(...),
     email: str = Form(...),
@@ -79,7 +74,7 @@ async def send_message(
 
         r = resend.Emails.send({
             "from": "ResuMy <noreply@resend.dev>",
-            "to": os.getenv("EMAIL_TO", "your-email@gmail.com"),   # Change this to your real email
+            "to": os.getenv("EMAIL_TO", "your-email@gmail.com"),
             "subject": f"New Message from {name}",
             "html": html_content,
             "reply_to": email

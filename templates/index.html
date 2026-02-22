@@ -1,168 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeFlow</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap');
-        
-        body { font-family: 'Montserrat', sans-serif; }
-        h1, h2, h3 { font-family: 'Kaushan Script', cursive; }
-        
-        .banner {
-            background-size: cover;
-            background-position: center;
-            transition: all 1s ease;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeFlow</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== GLOBAL CONTAINER ===== */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== HEADER ===== */
+.main-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: #fff;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.main-logo {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.main-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+
+.main-menu a:hover {
+    color: #fce38a;
+    border-bottom: 3px solid #fce38a;
+}
+
+/* ===== HERO SECTION (MO GO STRUCTURE PRESERVED) ===== */
+
+#section-1 {
+    height: 100vh;
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
+.content-slider {
+    position: relative;
+    height: 100%;
+}
+
+.sec-1-input {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    height: 100%;
+}
+
+.banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .5s ease;
+    background-size: cover;
+    background-position: center;
+}
+
+#top-banner-1 {
+    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070');
+}
+
+#top-banner-2 {
+    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070');
+}
+
+.banner-inner-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
+    padding: 0 20px;
+}
+
+.banner-inner-wrapper h2 {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.banner-inner-wrapper h1 {
+    font-size: 70px;
+    line-height: 95%;
+    text-transform: uppercase;
+}
+
+.line {
+    width: 60px;
+    height: 3px;
+    background: #fff;
+    margin: 30px 0;
+}
+
+.learn-more-button a {
+    padding: 12px 40px;
+    border: 3px solid #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: .3s;
+}
+
+.learn-more-button a:hover {
+    color: #e88382;
+    border-color: #e88382;
+}
+
+/* ACTIVE SLIDE LOGIC */
+#banner1:checked ~ .slider #top-banner-1,
+#banner2:checked ~ .slider #top-banner-2 {
+    opacity: 1;
+}
+
+/* ===== SLIDER CONTROLS ===== */
+
+.content-slider nav {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.controls label {
+    cursor: pointer;
+    color: #f6eac5;
+    font-size: 14px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.controls label:hover {
+    color: #e88382;
+}
+
+.progressbar {
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #f6eac5;
+}
+
+.progressbar-fill {
+    width: 100%;
+    height: 3px;
+    margin-left: -100%;
+    background: #e88382;
+}
+
+#banner1:checked ~ nav label:nth-of-type(1) .progressbar-fill,
+#banner2:checked ~ nav label:nth-of-type(2) .progressbar-fill {
+    animation: progressBarFill 5s linear;
+}
+
+@keyframes progressBarFill {
+    from { margin-left: -100%; }
+    to { margin-left: 0; }
+}
+
+/* ===== UPLOAD SECTION ===== */
+
+#upload {
+    padding: 100px 0;
+    text-align: center;
+    background: #fff;
+}
+
+#upload h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+#upload p {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+#upload-area {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px;
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#upload-area:hover {
+    border-color: #f38181;
+}
+
+textarea {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+
+.action-buttons button {
+    padding: 15px 40px;
+    margin: 10px;
+    border: 2px solid #333;
+    background: transparent;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.action-buttons button:hover {
+    background: #f38181;
+    color: white;
+    border-color: #f38181;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    padding: 60px 0;
+    background: #222;
+    color: white;
+    text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+    .main-menu {
+        gap: 15px;
+    }
+
+    .banner-inner-wrapper h1 {
+        font-size: 42px;
+    }
+
+    .banner-inner-wrapper h2 {
+        font-size: 24px;
+    }
+
+    #upload-area {
+        padding: 40px 20px;
+    }
+
+    .action-buttons button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+</style>
 </head>
-<body class="bg-black text-white">
 
-    <!-- Main Header -->
-    <header class="main-header">
-        <div class="header-wrapper">
-            <div class="main-logo text-3xl font-bold">ResumeFlow</div>
-            <nav>
-                <ul class="main-menu">
-                    <li><a href="#upload">Get Started</a></li>
-                    <li><a href="#how">How it Works</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<section id="section-1">
+    <div class="content-slider">
 
-    <!-- Hero Slider (Your MoGo Style) -->
-    <section id="section-1">
-        <div class="content-slider">
-            <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
-            <input type="radio" id="banner2" class="sec-1-input" name="banner">
-            <input type="radio" id="banner3" class="sec-1-input" name="banner">
+        <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
+        <input type="radio" id="banner2" class="sec-1-input" name="banner">
 
-            <div class="slider">
-                <!-- Slide 1 -->
-                <div id="top-banner-1" class="banner" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070')">
-                    <div class="banner-inner-wrapper">
-                        <h2>AI Resume Optimizer</h2>
-                        <h1>Welcome to<br>ResumeFlow</h1>
-                        <div class="line"></div>
-                        <a href="#upload" class="learn-more-button">Get Started</a>
-                    </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div id="top-banner-2" class="banner" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070')">
-                    <div class="banner-inner-wrapper">
-                        <h2>Professional Results</h2>
-                        <h1>In Seconds</h1>
-                        <div class="line"></div>
-                        <a href="#upload" class="learn-more-button">Try Now</a>
+        <div class="slider">
+            <div id="top-banner-1" class="banner">
+                <div class="banner-inner-wrapper">
+                    <h2>AI Resume Optimizer</h2>
+                    <h1>Welcome to<br>ResumeFlow</h1>
+                    <div class="line"></div>
+                    <div class="learn-more-button">
+                        <a href="#upload">Get Started</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Slider Navigation -->
-            <nav>
-                <div class="controls">
-                    <label for="banner1"><span class="progressbar"><span class="progressbar-fill"></span></span><span>01</span> Intro</label>
-                    <label for="banner2"><span class="progressbar"><span class="progressbar-fill"></span></span><span>02</span> Results</label>
-                </div>
-            </nav>
-        </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section id="upload" class="py-24 bg-zinc-950">
-        <div class="max-w-2xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-light mb-4">Upload Your Resume</h2>
-            <p class="text-gray-400 mb-12">Let AI make it stand out</p>
-
-            <div id="upload-area" class="border-4 border-dashed border-gray-600 hover:border-white rounded-3xl p-20 transition cursor-pointer">
-                <i class="fa-solid fa-cloud-arrow-up text-7xl mb-6"></i>
-                <p class="text-2xl">Drop PDF here or click to browse</p>
-                <input type="file" id="file-input" accept=".pdf" class="hidden">
-            </div>
-
-            <div id="file-info" class="hidden mt-8 bg-zinc-900 p-6 rounded-3xl flex items-center gap-6">
-                <i class="fa-solid fa-file-pdf text-5xl text-red-400"></i>
-                <div>
-                    <p id="filename" class="font-medium"></p>
-                    <p id="filesize" class="text-sm text-gray-500"></p>
+            <div id="top-banner-2" class="banner">
+                <div class="banner-inner-wrapper">
+                    <h2>Professional Results</h2>
+                    <h1>In Seconds</h1>
+                    <div class="line"></div>
+                    <div class="learn-more-button">
+                        <a href="#upload">Try Now</a>
+                    </div>
                 </div>
             </div>
-
-            <div class="mt-12">
-                <textarea id="job-desc" rows="4" class="w-full bg-zinc-900 border border-gray-700 rounded-3xl p-6" placeholder="Paste job description (optional)"></textarea>
-            </div>
-
-            <div class="grid grid-cols-2 gap-6 mt-12">
-                <button onclick="optimizeResume()" class="bg-white text-black py-6 rounded-3xl font-semibold text-lg">Optimize Resume</button>
-                <button onclick="generateCover()" class="bg-white text-black py-6 rounded-3xl font-semibold text-lg">Generate Cover Letter</button>
-            </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer id="main-footer" class="bg-black py-16 border-t border-gray-800">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <p class="text-gray-400">Made with ❤️ by <strong>Dime Solutions </strong> • Mombasa, Kenya</p>
-            <p class="mt-6">
-                <a href="https://buymeacoffee.com/bruceken" target="_blank" class="inline-flex items-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-medium">
-                    <i class="fa-solid fa-mug-hot"></i> Buy Me a Coffee
-                </a>
-            </p>
-            <p class="mt-12 text-xs text-gray-600">© 2026 Bruce Ken. All Rights Reserved.</p>
+        <nav>
+            <div class="controls">
+                <label for="banner1">
+                    <span class="progressbar"><span class="progressbar-fill"></span></span>
+                    01 Intro
+                </label>
+                <label for="banner2">
+                    <span class="progressbar"><span class="progressbar-fill"></span></span>
+                    02 Results
+                </label>
+            </div>
+        </nav>
+
+    </div>
+</section>
+
+<section id="upload">
+    <div class="container">
+        <h2>Upload Your Resume</h2>
+        <p>Let AI make it stand out</p>
+
+        <div id="upload-area">
+            <i class="fa-solid fa-cloud-arrow-up fa-3x"></i>
+            <p>Drop PDF here or click to browse</p>
+            <input type="file" id="file-input" accept=".pdf" hidden>
         </div>
-    </footer>
 
-    <script>
-        let uploadedFile = null;
+        <div id="file-info" style="display:none;">
+            <p id="filename"></p>
+            <p id="filesize"></p>
+        </div>
 
-        document.getElementById('upload-area').addEventListener('click', () => {
-            document.getElementById('file-input').click();
-        });
+        <textarea id="job-desc" rows="4" placeholder="Paste job description (optional)"></textarea>
 
-        document.getElementById('file-input').addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                uploadedFile = e.target.files[0];
-                document.getElementById('file-info').classList.remove('hidden');
-                document.getElementById('filename').textContent = uploadedFile.name;
-                document.getElementById('filesize').textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
-            }
-        });
+        <div class="action-buttons">
+            <button onclick="optimizeResume()">Optimize Resume</button>
+            <button onclick="generateCover()">Generate Cover Letter</button>
+        </div>
+    </div>
+</section>
 
-        async function optimizeResume() {
-            if (!uploadedFile) return alert("Upload your resume first");
-            await processFile('/optimize/');
-        }
+<footer id="main-footer">
+    <div class="container">
+        <p>Made with ❤️ by <strong>Dime Solutions</strong> • Mombasa, Kenya</p>
+        <p style="margin-top:20px;">
+            <a href="https://buymeacoffee.com/bruceken" target="_blank" style="color:#fce38a;">
+                <i class="fa-solid fa-mug-hot"></i> Buy Me a Coffee
+            </a>
+        </p>
+        <p style="margin-top:40px; font-size:12px;">© 2026 Bruce Ken. All Rights Reserved.</p>
+    </div>
+</footer>
 
-        async function generateCover() {
-            if (!uploadedFile) return alert("Upload your resume first");
-            await processFile('/generate-cover/');
-        }
+<script>
+let uploadedFile = null;
 
-        async function processFile(endpoint) {
-            const formData = new FormData();
-            formData.append('resume', uploadedFile);
+document.getElementById('upload-area').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+});
 
-            const jobDesc = document.getElementById('job-desc').value.trim();
-            if (jobDesc) formData.append('job_description', jobDesc);
+document.getElementById('file-input').addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+        uploadedFile = e.target.files[0];
+        document.getElementById('file-info').style.display = "block";
+        document.getElementById('filename').textContent = uploadedFile.name;
+        document.getElementById('filesize').textContent =
+            (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
+    }
+});
 
-            try {
-                const res = await fetch(endpoint, { method: 'POST', body: formData });
-                const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = endpoint.includes('optimize') ? 'optimized_resume.pdf' : 'cover_letter.pdf';
-                a.click();
-            } catch (err) {
-                alert("Error occurred. Please try again.");
-            }
-        }
-    </script>
+async function optimizeResume() {
+    if (!uploadedFile) return alert("Upload your resume first");
+    await processFile('/optimize/');
+}
+
+async function generateCover() {
+    if (!uploadedFile) return alert("Upload your resume first");
+    await processFile('/generate-cover/');
+}
+
+async function processFile(endpoint) {
+    const formData = new FormData();
+    formData.append('resume', uploadedFile);
+
+    const jobDesc = document.getElementById('job-desc').value.trim();
+    if (jobDesc) formData.append('job_description', jobDesc);
+
+    try {
+        const res = await fetch(endpoint, { method: 'POST', body: formData });
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = endpoint.includes('optimize') ? 
+            'optimized_resume.pdf' : 'cover_letter.pdf';
+        a.click();
+    } catch (err) {
+        alert("Error occurred. Please try again.");
+    }
+}
+</script>
+
 </body>
 </html>

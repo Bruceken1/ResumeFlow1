@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* Same full styles - copy from features.html */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Montserrat', sans-serif; }
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
@@ -32,6 +31,16 @@ body { font-family: 'Montserrat', sans-serif; }
 .faq details { background: white; border-radius: 12px; margin-bottom: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); overflow: hidden; }
 .faq summary { padding: 24px 32px; font-weight: 600; cursor: pointer; font-size: 1.1rem; }
 .faq p { padding: 0 32px 32px; line-height: 1.75; color: #444; }
+.contact-form { max-width: 680px; margin: 40px auto 0; }
+.contact-form input, .contact-form textarea {
+    width: 100%; padding: 18px 24px; border: 2px solid #e5e7eb; border-radius: 10px; margin-bottom: 20px; font-size: 1.05rem;
+}
+.contact-form button {
+    background: #f38181; color: white; border: none; padding: 18px 80px; font-size: 1.15rem; font-weight: 700;
+    border-radius: 10px; cursor: pointer; width: 100%; transition: 0.3s;
+}
+.contact-form button:hover { background: #e05a5a; }
+.success-msg { color: #10b981; font-weight: 600; margin-top: 20px; display: none; }
 footer { padding: 80px 0 40px; background: #111827; color: #e5e7eb; font-size: 15px; }
 .footer-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 50px; margin-bottom: 50px; }
@@ -90,13 +99,14 @@ footer { padding: 80px 0 40px; background: #111827; color: #e5e7eb; font-size: 1
         </div>
 
         <h2 style="text-align:center; margin:80px 0 40px;">Still have questions?</h2>
-        <div class="contact-form" style="max-width:680px; margin:40px auto 0;">
-            <form action="#" method="POST">
-                <input type="text" placeholder="Your Name" required style="width:100%; padding:18px 24px; border:2px solid #e5e7eb; border-radius:10px; margin-bottom:20px;">
-                <input type="email" placeholder="Your Email" required style="width:100%; padding:18px 24px; border:2px solid #e5e7eb; border-radius:10px; margin-bottom:20px;">
-                <textarea rows="6" placeholder="How can we help you today?" required style="width:100%; padding:18px 24px; border:2px solid #e5e7eb; border-radius:10px; margin-bottom:20px;"></textarea>
-                <button type="submit" style="background:#f38181; color:white; border:none; padding:18px 80px; font-size:1.15rem; font-weight:700; border-radius:10px; cursor:pointer; width:100%;">Send Message</button>
+        <div class="contact-form">
+            <form id="contact-form">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" rows="6" placeholder="How can we help you today?" required></textarea>
+                <button type="submit" id="submit-btn">Send Message</button>
             </form>
+            <p id="success-msg" class="success-msg">✅ Thank you! Your message has been received. We'll reply soon.</p>
         </div>
     </div>
 </section>
@@ -132,6 +142,7 @@ footer { padding: 80px 0 40px; background: #111827; color: #e5e7eb; font-size: 1
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const hamburgerIcon = hamburger.querySelector('i');
@@ -146,6 +157,46 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburgerIcon.classList.add('fa-bars');
             hamburgerIcon.classList.remove('fa-xmark');
         });
+    });
+
+    // Contact Form - Fixed URL (no trailing slash)
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('success-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+        submitBtn.disabled = true;
+
+        const formData = new URLSearchParams({
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        });
+
+        try {
+            const res = await fetch('/send-message', {   // ← No trailing slash
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            });
+
+            const data = await res.json();
+
+            if (data.status === "success") {
+                successMsg.style.display = 'block';
+                form.reset();
+            } else {
+                alert(data.msg || "Something went wrong.");
+            }
+        } catch (err) {
+            alert("Could not send message. Please check your internet.");
+        } finally {
+            submitBtn.innerHTML = 'Send Message';
+            submitBtn.disabled = false;
+        }
     });
 });
 </script>

@@ -4,21 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeFlow</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
-
 /* ===== RESET ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body { font-family: 'Montserrat', sans-serif; }
 
-/* ===== GLOBAL ===== */
+/* ===== GLOBAL CONTAINER ===== */
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
-
 .hidden { display: none !important; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 10;
+}
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+.logo i { font-size: 22px; color: #fff; }
 
 /* ===== HERO SECTION ===== */
 #section-1 {
@@ -28,13 +46,6 @@ body { font-family: 'Montserrat', sans-serif; }
     overflow: hidden;
     color: #fff;
 }
-
-.content-slider { position: relative; height: 100%; }
-
-.sec-1-input { display: none; }
-
-.slider { position: relative; height: 100%; }
-
 .banner {
     position: absolute;
     width: 100%;
@@ -45,15 +56,8 @@ body { font-family: 'Montserrat', sans-serif; }
     background-size: cover;
     background-position: center;
 }
-
-#top-banner-1 {
-    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070');
-}
-
-#top-banner-2 {
-    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070');
-}
-
+#top-banner-1 { background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070'); }
+#top-banner-2 { background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070'); }
 .banner-inner-wrapper {
     height: 100%;
     display: flex;
@@ -63,93 +67,25 @@ body { font-family: 'Montserrat', sans-serif; }
     background: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
     padding: 0 20px;
 }
-
-.banner-inner-wrapper h2 {
-    font-family: 'Kaushan Script', cursive;
-    font-size: 36px;
-}
-
 .banner-inner-wrapper h1 {
     font-size: 70px;
     text-transform: uppercase;
     line-height: 95%;
 }
-
-.line {
-    width: 60px;
-    height: 3px;
-    background: #fff;
-    margin: 30px 0;
-}
-
-.learn-more-button a {
-    padding: 12px 40px;
-    border: 3px solid #fff;
-    text-transform: uppercase;
-    font-size: 14px;
-    text-decoration: none;
-    color: #fff;
-    transition: .3s;
-}
-
-.learn-more-button a:hover {
-    color: #e88382;
-    border-color: #e88382;
-}
-
-/* ACTIVE SLIDE */
-#banner1:checked ~ .slider #top-banner-1,
-#banner2:checked ~ .slider #top-banner-2 {
-    opacity: 1;
-}
-
-/* CONTROLS */
-.content-slider nav {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-}
-
-.controls {
+.ai-badge {
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    gap: 40px;
-}
-
-.controls label {
-    cursor: pointer;
-    color: #f6eac5;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 30px;
     font-size: 14px;
-    text-transform: uppercase;
-    position: relative;
 }
-
-.controls label:hover { color: #e88382; }
-
-.progressbar {
-    position: absolute;
-    top: -8px;
-    width: 100%;
-    height: 3px;
-    background: #f6eac5;
-}
-
-.progressbar-fill {
-    width: 100%;
-    height: 3px;
-    margin-left: -100%;
-    background: #e88382;
-}
-
-#banner1:checked ~ nav label:nth-of-type(1) .progressbar-fill,
-#banner2:checked ~ nav label:nth-of-type(2) .progressbar-fill {
-    animation: progressBarFill 5s linear;
-}
-
-@keyframes progressBarFill {
-    from { margin-left: -100%; }
-    to { margin-left: 0; }
-}
+.ai-badge img { width: 18px; }
+.sec-1-input { display: none; }
+#banner1:checked ~ .slider #top-banner-1,
+#banner2:checked ~ .slider #top-banner-2 { opacity: 1; }
 
 /* ===== UPLOAD SECTION ===== */
 #upload {
@@ -157,11 +93,6 @@ body { font-family: 'Montserrat', sans-serif; }
     text-align: center;
     background: #fff;
 }
-
-#upload h2 { font-size: 36px; margin-bottom: 10px; }
-
-#upload p { color: #777; margin-bottom: 40px; }
-
 #upload-area {
     max-width: 700px;
     margin: 0 auto;
@@ -171,7 +102,6 @@ body { font-family: 'Montserrat', sans-serif; }
     cursor: pointer;
     transition: .3s;
 }
-
 #upload-area:hover { border-color: #f38181; }
 
 textarea {
@@ -184,89 +114,96 @@ textarea {
 }
 
 .action-buttons { margin-top: 30px; }
-
-.action-buttons button {
+.action-buttons button,
+.action-buttons a {
     padding: 15px 40px;
     margin: 10px;
     border: 2px solid #333;
     background: transparent;
     cursor: pointer;
-    text-transform: uppercase;
     border-radius: 6px;
-    transition: .3s;
     min-width: 220px;
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+    text-align: center;
+    transition: .3s;
 }
-
-.action-buttons button:hover {
+.action-buttons button:hover,
+.action-buttons a:hover {
     background: #f38181;
     color: white;
     border-color: #f38181;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer {
     padding: 60px 0;
     background: #222;
     color: white;
     text-align: center;
 }
-
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 </style>
 </head>
-
 <body>
 
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="container">
+        <div class="logo">
+            <i class="fa-solid fa-file-lines"></i>
+            ResumeFlow
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
 <section id="section-1">
     <div class="content-slider">
-
         <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
         <input type="radio" id="banner2" class="sec-1-input" name="banner">
 
         <div class="slider">
             <div id="top-banner-1" class="banner">
                 <div class="banner-inner-wrapper">
-                    <h2>AI Resume Optimizer</h2>
-                    <h1>Welcome to<br>ResumeFlow</h1>
-                    <div class="line"></div>
-                    <div class="learn-more-button">
-                        <a href="#upload">Get Started</a>
+                    <h1>Resume Optimizer</h1>
+                    <div class="ai-badge">
+                        <img src="https://cdn.worldvectorlogo.com/logos/openai-2.svg">
+                        Powered by AI
+                    </div>
+                    <div style="margin-top:40px;">
+                        <a href="#upload" style="padding:12px 40px; border:2px solid white; text-decoration:none; color:white;">
+                            Get Started
+                        </a>
                     </div>
                 </div>
             </div>
-
             <div id="top-banner-2" class="banner">
                 <div class="banner-inner-wrapper">
-                    <h2>Professional Results</h2>
-                    <h1>In Seconds</h1>
-                    <div class="line"></div>
-                    <div class="learn-more-button">
-                        <a href="#upload">Try Now</a>
+                    <h1>Professional Results</h1>
+                    <div class="ai-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        Instant Enhancement
                     </div>
                 </div>
             </div>
         </div>
-
-        <nav>
-            <div class="controls">
-                <label for="banner1">
-                    <span class="progressbar"><span class="progressbar-fill"></span></span>
-                    01 Intro
-                </label>
-                <label for="banner2">
-                    <span class="progressbar"><span class="progressbar-fill"></span></span>
-                    02 Results
-                </label>
-            </div>
-        </nav>
-
     </div>
 </section>
 
+<!-- UPLOAD SECTION -->
 <section id="upload">
     <div class="container">
-
         <h2>Upload Your Resume</h2>
-        <p>Let AI make it stand out</p>
 
         <div id="upload-area">
             <i class="fa-solid fa-cloud-arrow-up fa-3x"></i>
@@ -274,9 +211,9 @@ footer {
             <input type="file" id="file-input" accept=".pdf" hidden>
         </div>
 
-        <div id="file-info" class="hidden" style="margin-top:20px;">
-            <p id="filename"></p>
-            <p id="filesize"></p>
+        <div id="file-info" style="display:none; margin-top:20px; padding:15px; background:#f9f9f9; border-radius:8px;">
+            <p id="filename" style="font-weight:600;"></p>
+            <p id="filesize" style="color:#666;"></p>
         </div>
 
         <textarea id="job-desc" rows="4" placeholder="Paste job description (optional)"></textarea>
@@ -287,110 +224,102 @@ footer {
         </div>
 
         <!-- Loading -->
-        <div id="loading" class="hidden" style="margin-top:40px;">
-            <i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:#6c5ce7; margin-bottom:15px;"></i>
-            <p style="font-size:18px; font-weight:600;">Processing with AI...</p>
-            <p style="font-size:14px; color:#777;">This may take 15-35 seconds</p>
+        <div id="loading" class="hidden mt-8 flex flex-col items-center">
+            <i class="fa-solid fa-spinner fa-spin text-4xl text-violet-500 mb-4"></i>
+            <p class="text-lg font-medium">Processing with AI...</p>
+            <p class="text-sm text-gray-500">This may take 15-35 seconds</p>
         </div>
 
         <!-- Success -->
-        <div id="success" class="hidden" style="margin-top:50px;">
-            <p style="color:#27ae60; font-size:22px; font-weight:600; margin-bottom:25px;">
-                ✅ Done! Your files are ready
-            </p>
-
-            <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
-                <a id="resume-download" href="#" class="hidden"
-                   style="padding:12px 30px; background:#fff; border:2px solid #333; border-radius:8px; text-decoration:none; color:#000;">
-                   Download Optimized Resume
-                </a>
-
-                <a id="cover-download" href="#" class="hidden"
-                   style="padding:12px 30px; background:#fff; border:2px solid #333; border-radius:8px; text-decoration:none; color:#000;">
-                   Download Cover Letter
-                </a>
+        <div id="success" class="hidden mt-12 text-center">
+            <p class="text-green-500 text-2xl font-medium mb-6">✅ Done! Your files are ready</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center action-buttons">
+                <a id="resume-download" href="#" class="hidden">Download Optimized Resume</a>
+                <a id="cover-download" href="#" class="hidden">Download Cover Letter</a>
             </div>
         </div>
-
     </div>
 </section>
 
 <footer>
-    <div class="container">
-        <p>Made with ❤️ by <strong>Bruce Ken</strong> • Mombasa, Kenya</p>
+    <div class="footer-logo">
+        <i class="fa-solid fa-file-lines"></i>
+        ResumeFlow
     </div>
+    <p>Built By DIME SOLUTIONS • Mombasa, Kenya • TEL: +254740413951 • EMAIL: mukabiken@gmail.com </p>
 </footer>
 
 <script>
-let uploadedFile = null;
+document.addEventListener('DOMContentLoaded', () => {
+    let uploadedFile = null;
 
-document.getElementById('upload-area').addEventListener('click', () => {
-    document.getElementById('file-input').click();
-});
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    const fileInfo = document.getElementById('file-info');
+    const filenameEl = document.getElementById('filename');
+    const filesizeEl = document.getElementById('filesize');
 
-document.getElementById('file-input').addEventListener('change', (e) => {
-    if (e.target.files.length > 0) {
-        uploadedFile = e.target.files[0];
-        document.getElementById('file-info').classList.remove('hidden');
-        document.getElementById('filename').textContent = uploadedFile.name;
-        document.getElementById('filesize').textContent =
-            (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            uploadedFile = e.target.files[0];
+            fileInfo.style.display = "block";
+            filenameEl.textContent = uploadedFile.name;
+            filesizeEl.textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
+        }
+    });
+
+    async function optimizeResume() {
+        await processFile('/optimize/', 'optimize-btn', 'resume-download');
     }
-});
 
-async function optimizeResume() {
-    await processFile('/optimize/', 'optimize-btn', 'resume-download');
-}
-
-async function generateCover() {
-    await processFile('/generate-cover/', 'cover-btn', 'cover-download');
-}
-
-async function processFile(endpoint, btnId, downloadLinkId) {
-
-    if (!uploadedFile) return alert("Please upload your resume first");
-
-    const loading = document.getElementById('loading');
-    const success = document.getElementById('success');
-    const btn = document.getElementById(btnId);
-
-    loading.classList.remove('hidden');
-    success.classList.add('hidden');
-
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
-
-    const formData = new FormData();
-    formData.append('resume', uploadedFile);
-
-    const jobDesc = document.getElementById('job-desc').value.trim();
-    if (jobDesc) formData.append('job_description', jobDesc);
-
-    try {
-        const res = await fetch(endpoint, { method: 'POST', body: formData });
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-
-        const link = document.getElementById(downloadLinkId);
-        link.href = url;
-        link.download = endpoint.includes('optimize')
-            ? 'optimized_resume.pdf'
-            : 'cover_letter.pdf';
-        link.classList.remove('hidden');
-
-        loading.classList.add('hidden');
-        success.classList.remove('hidden');
-
-    } catch (err) {
-        alert("Something went wrong. Please try again.");
-        loading.classList.add('hidden');
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
+    async function generateCover() {
+        await processFile('/generate-cover/', 'cover-btn', 'cover-download');
     }
-}
+
+    async function processFile(endpoint, btnId, downloadLinkId) {
+        if (!uploadedFile) return alert("Please upload your resume first");
+
+        const loading = document.getElementById('loading');
+        const success = document.getElementById('success');
+        const btn = document.getElementById(btnId);
+
+        loading.classList.remove('hidden');
+        success.classList.add('hidden');
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+
+        const formData = new FormData();
+        formData.append('resume', uploadedFile);
+
+        const jobDesc = document.getElementById('job-desc').value.trim();
+        if (jobDesc) formData.append('job_description', jobDesc);
+
+        try {
+            const res = await fetch(endpoint, { method: 'POST', body: formData });
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+
+            const link = document.getElementById(downloadLinkId);
+            link.href = url;
+            link.download = endpoint.includes('optimize') ? 'optimized_resume.pdf' : 'cover_letter.pdf';
+            link.classList.remove('hidden');
+
+            loading.classList.add('hidden');
+            success.classList.remove('hidden');
+        } catch (err) {
+            alert("Something went wrong. Please try again.");
+            loading.classList.add('hidden');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = endpoint.includes('optimize') ? "Optimize Resume" : "Generate Cover Letter";
+        }
+    }
+
+    window.optimizeResume = optimizeResume;
+    window.generateCover = generateCover;
+});
 </script>
-
 </body>
 </html>

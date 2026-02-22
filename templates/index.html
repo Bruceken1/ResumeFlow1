@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResumeFlow</title>
+<title>ResuMy</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 /* ===== RESET ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Montserrat', sans-serif; }
-
 /* ===== GLOBAL CONTAINER ===== */
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 .hidden { display: none !important; }
-
 /* ===== NAVBAR ===== */
 .navbar {
     position: absolute;
@@ -37,7 +35,6 @@ body { font-family: 'Montserrat', sans-serif; }
     font-size: 20px;
 }
 .logo i { font-size: 22px; color: #fff; }
-
 /* ===== HERO SECTION ===== */
 #section-1 {
     height: 100vh;
@@ -64,20 +61,29 @@ body { font-family: 'Montserrat', sans-serif; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
+    background: linear-gradient(rgba(243,129,129,0.82), rgba(30,41,59,0.93));
     padding: 0 20px;
 }
 .banner-inner-wrapper h1 {
     font-size: 70px;
     text-transform: uppercase;
     line-height: 95%;
+    margin-bottom: 8px;
+}
+.hero-tagline {
+    font-size: 28px;
+    max-width: 720px;
+    margin: 20px auto 35px;
+    line-height: 1.35;
+    font-weight: 400;
+    opacity: 0.98;
 }
 .ai-badge {
-    margin-top: 20px;
+    margin-top: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.25);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 14px;
@@ -86,6 +92,21 @@ body { font-family: 'Montserrat', sans-serif; }
 .sec-1-input { display: none; }
 #banner1:checked ~ .slider #top-banner-1,
 #banner2:checked ~ .slider #top-banner-2 { opacity: 1; }
+
+/* RESPONSIVE TEXT SCALING FOR HERO */
+@media (max-width: 1024px) {
+    .banner-inner-wrapper h1 { font-size: 58px; }
+    .hero-tagline { font-size: 26px; }
+}
+@media (max-width: 768px) {
+    .banner-inner-wrapper h1 { font-size: 48px; line-height: 1.1; }
+    .hero-tagline { font-size: 22px; margin: 18px auto 30px; }
+}
+@media (max-width: 480px) {
+    .banner-inner-wrapper h1 { font-size: 36px; }
+    .hero-tagline { font-size: 19px; margin: 15px auto 25px; }
+    .ai-badge { font-size: 13px; padding: 7px 14px; }
+}
 
 /* ===== UPLOAD SECTION ===== */
 #upload {
@@ -103,7 +124,6 @@ body { font-family: 'Montserrat', sans-serif; }
     transition: .3s;
 }
 #upload-area:hover { border-color: #f38181; }
-
 textarea {
     width: 100%;
     max-width: 700px;
@@ -112,7 +132,6 @@ textarea {
     margin-top: 30px;
     border-radius: 8px;
 }
-
 .action-buttons { margin-top: 30px; }
 .action-buttons button,
 .action-buttons a {
@@ -136,32 +155,115 @@ textarea {
     border-color: #f38181;
 }
 
-/* ===== FOOTER ===== */
+/* ===== PROFESSIONAL FOOTER ===== */
 footer {
-    padding: 60px 0;
-    background: #222;
-    color: white;
-    text-align: center;
+    padding: 80px 0 40px;
+    background: #111827;
+    color: #e5e7eb;
+    font-size: 15px;
+}
+.footer-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    margin-bottom: 50px;
 }
 .footer-logo {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 26px;
+    color: #fff;
+    flex-shrink: 0;
+}
+.footer-contact {
+    line-height: 1.9;
+    flex-shrink: 0;
+}
+.footer-contact p {
+    margin-bottom: 10px;
+    display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
+}
+.footer-contact a {
+    color: #e5e7eb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-contact a:hover {
+    color: #f38181;
+}
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    font-weight: 500;
+}
+.footer-links a {
+    color: #e5e7eb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-links a:hover {
+    color: #f38181;
+}
+.footer-bottom {
+    border-top: 1px solid #374151;
+    padding-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+.footer-bottom p {
+    margin: 0;
+}
+.social-icons {
+    display: flex;
+    gap: 18px;
+}
+.social-icons a {
+    color: #9ca3af;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    color: #f38181;
+}
+
+/* Mobile adjustments for footer */
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 35px;
+    }
+    .footer-links {
+        justify-content: center;
+    }
 }
 </style>
 </head>
 <body>
-
 <!-- NAVBAR -->
 <div class="navbar">
     <div class="container">
         <div class="logo">
             <i class="fa-solid fa-file-lines"></i>
-            ResumeFlow
+            ResuMy
         </div>
     </div>
 </div>
@@ -171,22 +273,25 @@ footer {
     <div class="content-slider">
         <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
         <input type="radio" id="banner2" class="sec-1-input" name="banner">
-
         <div class="slider">
+            <!-- Banner 1 -->
             <div id="top-banner-1" class="banner">
                 <div class="banner-inner-wrapper">
-                    <h1>ResumeFlow</h1>
+                    <h1>ResuMy</h1>
                     <div class="ai-badge">
                         <img src="https://cdn.worldvectorlogo.com/logos/openai-2.svg">
                         Powered by AI
                     </div>
-                    <div style="margin-top:40px;">
-                        <a href="#upload" style="padding:12px 40px; border:2px solid white; text-decoration:none; color:white;">
+                    <p class="hero-tagline">AI-powered resume optimization &amp; cover letters that get you hired faster</p>
+                    <div style="margin-top:20px;">
+                        <a href="#upload" style="padding:14px 42px; border:2px solid white; text-decoration:none; color:white; font-weight:600; font-size:17px; border-radius:6px;">
                             Get Started
                         </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Banner 2 -->
             <div id="top-banner-2" class="banner">
                 <div class="banner-inner-wrapper">
                     <h1>Professional Results</h1>
@@ -194,42 +299,37 @@ footer {
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         Instant Enhancement
                     </div>
+                    <p class="hero-tagline">Upload once. Get recruiter-approved, ATS-optimized resumes &amp; tailored cover letters in seconds</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- UPLOAD SECTION -->
+<!-- UPLOAD SECTION (UNCHANGED) -->
 <section id="upload">
     <div class="container">
         <h2>Upload Your Resume</h2>
-
         <div id="upload-area">
             <i class="fa-solid fa-cloud-arrow-up fa-3x"></i>
             <p>Drop PDF here or click to browse</p>
             <input type="file" id="file-input" accept=".pdf" hidden>
         </div>
-
         <div id="file-info" style="display:none; margin-top:20px; padding:15px; background:#f9f9f9; border-radius:8px;">
             <p id="filename" style="font-weight:600;"></p>
             <p id="filesize" style="color:#666;"></p>
         </div>
-
         <textarea id="job-desc" rows="4" placeholder="Paste job description (optional)"></textarea>
-
         <div class="action-buttons">
             <button id="optimize-btn" onclick="optimizeResume()">Optimize Resume</button>
             <button id="cover-btn" onclick="generateCover()">Generate Cover Letter</button>
         </div>
-
         <!-- Loading -->
         <div id="loading" class="hidden mt-8 flex flex-col items-center">
             <i class="fa-solid fa-spinner fa-spin text-4xl text-violet-500 mb-4"></i>
             <p class="text-lg font-medium">Processing with AI...</p>
             <p class="text-sm text-gray-500">This may take 15-35 seconds</p>
         </div>
-
         <!-- Success -->
         <div id="success" class="hidden mt-12 text-center">
             <p class="text-green-500 text-2xl font-medium mb-6">✅ Done! Your files are ready</p>
@@ -241,26 +341,54 @@ footer {
     </div>
 </section>
 
+<!-- PROFESSIONAL FOOTER -->
 <footer>
-    <div class="footer-logo">
-        <i class="fa-solid fa-file-lines"></i>
-        ResumeFlow
+    <div class="footer-wrapper">
+        <div class="footer-top">
+            <!-- Logo -->
+            <div class="footer-logo">
+                <i class="fa-solid fa-file-lines"></i>
+                ResuMy
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-contact">
+                <p><i class="fa-solid fa-location-dot"></i> Mombasa, Kenya</p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+254740413951">+254 740 413 951</a></p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <a href="#">Features</a>
+                <a href="#">How it Works</a>
+                <a href="#">Pricing</a>
+                <a href="#">Blog</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 ResuMy • All Rights Reserved</p>
+            <p>Built by <strong>DIME SOLUTIONS</strong></p>
+            <div class="social-icons">
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
     </div>
-    <p>Built By DIME SOLUTIONS • Mombasa, Kenya • TEL: +254740413951 • </p>
 </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     let uploadedFile = null;
-
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file-input');
     const fileInfo = document.getElementById('file-info');
     const filenameEl = document.getElementById('filename');
     const filesizeEl = document.getElementById('filesize');
-
     uploadArea.addEventListener('click', () => fileInput.click());
-
     fileInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) {
             uploadedFile = e.target.files[0];
@@ -269,43 +397,33 @@ document.addEventListener('DOMContentLoaded', () => {
             filesizeEl.textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
         }
     });
-
     async function optimizeResume() {
         await processFile('/optimize/', 'optimize-btn', 'resume-download');
     }
-
     async function generateCover() {
         await processFile('/generate-cover/', 'cover-btn', 'cover-download');
     }
-
     async function processFile(endpoint, btnId, downloadLinkId) {
         if (!uploadedFile) return alert("Please upload your resume first");
-
         const loading = document.getElementById('loading');
         const success = document.getElementById('success');
         const btn = document.getElementById(btnId);
-
         loading.classList.remove('hidden');
         success.classList.add('hidden');
         btn.disabled = true;
         btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
-
         const formData = new FormData();
         formData.append('resume', uploadedFile);
-
         const jobDesc = document.getElementById('job-desc').value.trim();
         if (jobDesc) formData.append('job_description', jobDesc);
-
         try {
             const res = await fetch(endpoint, { method: 'POST', body: formData });
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
-
             const link = document.getElementById(downloadLinkId);
             link.href = url;
             link.download = endpoint.includes('optimize') ? 'optimized_resume.pdf' : 'cover_letter.pdf';
             link.classList.remove('hidden');
-
             loading.classList.add('hidden');
             success.classList.remove('hidden');
         } catch (err) {
@@ -316,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = endpoint.includes('optimize') ? "Optimize Resume" : "Generate Cover Letter";
         }
     }
-
     window.optimizeResume = optimizeResume;
     window.generateCover = generateCover;
 });

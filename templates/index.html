@@ -13,13 +13,17 @@ body { font-family: 'Montserrat', sans-serif; }
 /* ===== GLOBAL CONTAINER ===== */
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 .hidden { display: none !important; }
-/* ===== NAVBAR ===== */
+
+/* ===== NAVBAR (ENHANCED WITH MENU) ===== */
 .navbar {
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
-    padding: 20px 0;
-    z-index: 10;
+    padding: 18px 0;
+    z-index: 100;
+    background: rgba(17, 24, 39, 0.92);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
 }
 .navbar .container {
     display: flex;
@@ -32,9 +36,39 @@ body { font-family: 'Montserrat', sans-serif; }
     gap: 10px;
     color: white;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
+    text-decoration: none;
 }
-.logo i { font-size: 22px; color: #fff; }
+.logo i { font-size: 24px; color: #fff; }
+
+.menu-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15.5px;
+    transition: color 0.3s ease;
+}
+.nav-links a:hover {
+    color: #f38181;
+}
+.hamburger {
+    display: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
 /* ===== HERO SECTION ===== */
 #section-1 {
     height: 100vh;
@@ -42,6 +76,7 @@ body { font-family: 'Montserrat', sans-serif; }
     position: relative;
     overflow: hidden;
     color: #fff;
+    margin-top: 0; /* fixed navbar overlays hero naturally */
 }
 .banner {
     position: absolute;
@@ -106,6 +141,32 @@ body { font-family: 'Montserrat', sans-serif; }
     .banner-inner-wrapper h1 { font-size: 36px; }
     .hero-tagline { font-size: 19px; margin: 15px auto 25px; }
     .ai-badge { font-size: 13px; padding: 7px 14px; }
+}
+
+/* MOBILE HAMBURGER MENU */
+@media (max-width: 992px) {
+    .hamburger {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #111827;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px 0;
+        gap: 28px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .menu-wrapper {
+        gap: 20px;
+    }
 }
 
 /* ===== UPLOAD SECTION ===== */
@@ -258,12 +319,28 @@ footer {
 </style>
 </head>
 <body>
-<!-- NAVBAR -->
+<!-- NAVBAR WITH HAMBURGER MENU -->
 <div class="navbar">
     <div class="container">
         <div class="logo">
             <i class="fa-solid fa-file-lines"></i>
             ResuMy
+        </div>
+        
+        <div class="menu-wrapper">
+            <!-- Desktop & Tablet Menu -->
+            <ul class="nav-links">
+                <li><a href="#">Features</a></li>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+            
+            <!-- Hamburger -->
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
     </div>
 </div>
@@ -341,7 +418,7 @@ footer {
     </div>
 </section>
 
-<!-- PROFESSIONAL FOOTER -->
+<!-- PROFESSIONAL FOOTER (UNCHANGED) -->
 <footer>
     <div class="footer-wrapper">
         <div class="footer-top">
@@ -436,6 +513,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.optimizeResume = optimizeResume;
     window.generateCover = generateCover;
+
+    // ===== HAMBURGER MENU FUNCTIONALITY =====
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const hamburgerIcon = hamburger.querySelector('i');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        
+        if (navLinks.classList.contains('active')) {
+            hamburgerIcon.classList.remove('fa-bars');
+            hamburgerIcon.classList.add('fa-xmark');
+        } else {
+            hamburgerIcon.classList.remove('fa-xmark');
+            hamburgerIcon.classList.add('fa-bars');
+        }
+    });
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburgerIcon.classList.remove('fa-xmark');
+            hamburgerIcon.classList.add('fa-bars');
+        });
+    });
 });
 </script>
 </body>

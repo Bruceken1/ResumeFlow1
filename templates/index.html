@@ -1,215 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeFlow</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap');
-        
-        body { font-family: 'Montserrat', sans-serif; }
-        h1, h2, h3 { font-family: 'Kaushan Script', cursive; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeFlow</title>
 
-        .spinner {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* ===== RESET ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'Montserrat', sans-serif; }
+
+/* ===== GLOBAL ===== */
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+.hidden { display: none !important; }
+
+/* ===== HERO SECTION ===== */
+#section-1 {
+    height: 100vh;
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
+.content-slider { position: relative; height: 100%; }
+
+.sec-1-input { display: none; }
+
+.slider { position: relative; height: 100%; }
+
+.banner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .5s ease;
+    background-size: cover;
+    background-position: center;
+}
+
+#top-banner-1 {
+    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070');
+}
+
+#top-banner-2 {
+    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070');
+}
+
+.banner-inner-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
+    padding: 0 20px;
+}
+
+.banner-inner-wrapper h2 {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 36px;
+}
+
+.banner-inner-wrapper h1 {
+    font-size: 70px;
+    text-transform: uppercase;
+    line-height: 95%;
+}
+
+.line {
+    width: 60px;
+    height: 3px;
+    background: #fff;
+    margin: 30px 0;
+}
+
+.learn-more-button a {
+    padding: 12px 40px;
+    border: 3px solid #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: .3s;
+}
+
+.learn-more-button a:hover {
+    color: #e88382;
+    border-color: #e88382;
+}
+
+/* ACTIVE SLIDE */
+#banner1:checked ~ .slider #top-banner-1,
+#banner2:checked ~ .slider #top-banner-2 {
+    opacity: 1;
+}
+
+/* CONTROLS */
+.content-slider nav {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.controls label {
+    cursor: pointer;
+    color: #f6eac5;
+    font-size: 14px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.controls label:hover { color: #e88382; }
+
+.progressbar {
+    position: absolute;
+    top: -8px;
+    width: 100%;
+    height: 3px;
+    background: #f6eac5;
+}
+
+.progressbar-fill {
+    width: 100%;
+    height: 3px;
+    margin-left: -100%;
+    background: #e88382;
+}
+
+#banner1:checked ~ nav label:nth-of-type(1) .progressbar-fill,
+#banner2:checked ~ nav label:nth-of-type(2) .progressbar-fill {
+    animation: progressBarFill 5s linear;
+}
+
+@keyframes progressBarFill {
+    from { margin-left: -100%; }
+    to { margin-left: 0; }
+}
+
+/* ===== UPLOAD SECTION ===== */
+#upload {
+    padding: 100px 0;
+    text-align: center;
+    background: #fff;
+}
+
+#upload h2 { font-size: 36px; margin-bottom: 10px; }
+
+#upload p { color: #777; margin-bottom: 40px; }
+
+#upload-area {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px;
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#upload-area:hover { border-color: #f38181; }
+
+textarea {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+.action-buttons { margin-top: 30px; }
+
+.action-buttons button {
+    padding: 15px 40px;
+    margin: 10px;
+    border: 2px solid #333;
+    background: transparent;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: .3s;
+    min-width: 220px;
+}
+
+.action-buttons button:hover {
+    background: #f38181;
+    color: white;
+    border-color: #f38181;
+}
+
+/* FOOTER */
+footer {
+    padding: 60px 0;
+    background: #222;
+    color: white;
+    text-align: center;
+}
+
+</style>
 </head>
-<body class="bg-black text-white">
 
-    <!-- Navigation -->
-    <header class="main-header">
-        <div class="header-wrapper">
-            <div class="main-logo text-3xl font-bold">ResumeFlow</div>
-            <nav>
-                <ul class="main-menu">
-                    <li><a href="#upload">Get Started</a></li>
-                    <li><a href="#how">How it Works</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body>
 
-    <!-- Hero Slider -->
-    <section id="section-1" class="relative h-screen">
-        <div class="content-slider">
-            <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
-            <input type="radio" id="banner2" class="sec-1-input" name="banner">
+<section id="section-1">
+    <div class="content-slider">
 
-            <div class="slider">
-                <div id="top-banner-1" class="banner" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070')">
-                    <div class="banner-inner-wrapper">
-                        <h2>AI Resume Optimizer</h2>
-                        <h1>Welcome to<br>ResumeFlow</h1>
-                        <div class="line"></div>
-                        <a href="#upload" class="learn-more-button">Get Started</a>
-                    </div>
-                </div>
-                <div id="top-banner-2" class="banner" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070')">
-                    <div class="banner-inner-wrapper">
-                        <h2>Professional Results</h2>
-                        <h1>In Seconds</h1>
-                        <div class="line"></div>
-                        <a href="#upload" class="learn-more-button">Try Now</a>
+        <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
+        <input type="radio" id="banner2" class="sec-1-input" name="banner">
+
+        <div class="slider">
+            <div id="top-banner-1" class="banner">
+                <div class="banner-inner-wrapper">
+                    <h2>AI Resume Optimizer</h2>
+                    <h1>Welcome to<br>ResumeFlow</h1>
+                    <div class="line"></div>
+                    <div class="learn-more-button">
+                        <a href="#upload">Get Started</a>
                     </div>
                 </div>
             </div>
 
-            <nav>
-                <div class="controls">
-                    <label for="banner1"><span class="progressbar"><span class="progressbar-fill"></span></span><span>01</span> Intro</label>
-                    <label for="banner2"><span class="progressbar"><span class="progressbar-fill"></span></span><span>02</span> Results</label>
-                </div>
-            </nav>
-        </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section id="upload" class="py-24 bg-zinc-950">
-        <div class="max-w-2xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-light mb-6">Ready to Stand Out?</h2>
-            <p class="text-gray-400 mb-12">Upload your resume and let AI transform it</p>
-
-            <div id="upload-area" class="border-4 border-dashed border-gray-600 hover:border-white rounded-3xl p-20 transition cursor-pointer">
-                <i class="fa-solid fa-cloud-arrow-up text-7xl mb-8"></i>
-                <p class="text-2xl">Drop your resume PDF here</p>
-                <input type="file" id="file-input" accept=".pdf" class="hidden">
-            </div>
-
-            <div id="file-info" class="hidden mt-8 bg-zinc-900 rounded-3xl p-6 flex items-center gap-6">
-                <i class="fa-solid fa-file-pdf text-5xl text-red-400"></i>
-                <div class="flex-1 text-left">
-                    <p id="filename" class="font-medium"></p>
-                    <p id="filesize" class="text-sm text-gray-500"></p>
-                </div>
-            </div>
-
-            <div class="mt-12">
-                <textarea id="job-desc" rows="4" class="w-full bg-zinc-900 border border-gray-700 rounded-3xl p-6" placeholder="Paste job description (optional but recommended)"></textarea>
-            </div>
-
-            <div class="grid grid-cols-2 gap-6 mt-12">
-                <button onclick="optimizeResume()" id="optimize-btn"
-                    class="bg-white text-black py-6 rounded-3xl font-semibold text-lg hover:bg-violet-400 hover:text-white transition">
-                    Optimize Resume
-                </button>
-                <button onclick="generateCover()" id="cover-btn"
-                    class="bg-white text-black py-6 rounded-3xl font-semibold text-lg hover:bg-violet-400 hover:text-white transition">
-                    Generate Cover Letter
-                </button>
-            </div>
-
-            <!-- Loading -->
-            <div id="loading" class="hidden mt-12 flex flex-col items-center">
-                <i class="fa-solid fa-spinner fa-spin text-5xl text-violet-400 mb-4 spinner"></i>
-                <p class="text-xl font-medium">AI is working on your resume...</p>
-                <p class="text-gray-400 mt-2">Please wait • This may take 15-35 seconds</p>
-            </div>
-
-            <!-- Success -->
-            <div id="success" class="hidden mt-12">
-                <p class="text-green-400 text-2xl font-medium mb-6">✅ Done! Your files are ready</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a id="resume-download" href="#" 
-                       class="hidden bg-white text-black px-8 py-4 rounded-2xl font-semibold hover:bg-gray-200">
-                        Download Optimized Resume
-                    </a>
-                    <a id="cover-download" href="#" 
-                       class="hidden bg-white text-black px-8 py-4 rounded-2xl font-semibold hover:bg-gray-200">
-                        Download Cover Letter
-                    </a>
+            <div id="top-banner-2" class="banner">
+                <div class="banner-inner-wrapper">
+                    <h2>Professional Results</h2>
+                    <h1>In Seconds</h1>
+                    <div class="line"></div>
+                    <div class="learn-more-button">
+                        <a href="#upload">Try Now</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer id="main-footer" class="bg-black py-16 border-t border-gray-800">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <p class="text-gray-400">Made with ❤️ by <strong>Bruce Ken</strong> • Mombasa, Kenya</p>
-            <p class="mt-8">
-                <a href="https://buymeacoffee.com/bruceken" target="_blank" class="inline-flex items-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-2xl font-medium hover:bg-yellow-300">
-                    <i class="fa-solid fa-mug-hot"></i> Buy Me a Coffee
-                </a>
+        <nav>
+            <div class="controls">
+                <label for="banner1">
+                    <span class="progressbar"><span class="progressbar-fill"></span></span>
+                    01 Intro
+                </label>
+                <label for="banner2">
+                    <span class="progressbar"><span class="progressbar-fill"></span></span>
+                    02 Results
+                </label>
+            </div>
+        </nav>
+
+    </div>
+</section>
+
+<section id="upload">
+    <div class="container">
+
+        <h2>Upload Your Resume</h2>
+        <p>Let AI make it stand out</p>
+
+        <div id="upload-area">
+            <i class="fa-solid fa-cloud-arrow-up fa-3x"></i>
+            <p>Drop PDF here or click to browse</p>
+            <input type="file" id="file-input" accept=".pdf" hidden>
+        </div>
+
+        <div id="file-info" class="hidden" style="margin-top:20px;">
+            <p id="filename"></p>
+            <p id="filesize"></p>
+        </div>
+
+        <textarea id="job-desc" rows="4" placeholder="Paste job description (optional)"></textarea>
+
+        <div class="action-buttons">
+            <button id="optimize-btn" onclick="optimizeResume()">Optimize Resume</button>
+            <button id="cover-btn" onclick="generateCover()">Generate Cover Letter</button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden" style="margin-top:40px;">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:#6c5ce7; margin-bottom:15px;"></i>
+            <p style="font-size:18px; font-weight:600;">Processing with AI...</p>
+            <p style="font-size:14px; color:#777;">This may take 15-35 seconds</p>
+        </div>
+
+        <!-- Success -->
+        <div id="success" class="hidden" style="margin-top:50px;">
+            <p style="color:#27ae60; font-size:22px; font-weight:600; margin-bottom:25px;">
+                ✅ Done! Your files are ready
             </p>
-            <p class="mt-12 text-xs text-gray-600">© 2026 Bruce Ken. All Rights Reserved.</p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
+                <a id="resume-download" href="#" class="hidden"
+                   style="padding:12px 30px; background:#fff; border:2px solid #333; border-radius:8px; text-decoration:none; color:#000;">
+                   Download Optimized Resume
+                </a>
+
+                <a id="cover-download" href="#" class="hidden"
+                   style="padding:12px 30px; background:#fff; border:2px solid #333; border-radius:8px; text-decoration:none; color:#000;">
+                   Download Cover Letter
+                </a>
+            </div>
         </div>
-    </footer>
 
-    <script>
-        let uploadedFile = null;
+    </div>
+</section>
 
-        document.getElementById('upload-area').addEventListener('click', () => {
-            document.getElementById('file-input').click();
-        });
+<footer>
+    <div class="container">
+        <p>Made with ❤️ by <strong>Bruce Ken</strong> • Mombasa, Kenya</p>
+    </div>
+</footer>
 
-        document.getElementById('file-input').addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                uploadedFile = e.target.files[0];
-                document.getElementById('file-info').classList.remove('hidden');
-                document.getElementById('filename').textContent = uploadedFile.name;
-                document.getElementById('filesize').textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
-            }
-        });
+<script>
+let uploadedFile = null;
 
-        function removeFile() {
-            uploadedFile = null;
-            document.getElementById('file-info').classList.add('hidden');
-        }
+document.getElementById('upload-area').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+});
 
-        async function optimizeResume() {
-            await processFile('/optimize/', 'optimize-btn', 'resume-download');
-        }
+document.getElementById('file-input').addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+        uploadedFile = e.target.files[0];
+        document.getElementById('file-info').classList.remove('hidden');
+        document.getElementById('filename').textContent = uploadedFile.name;
+        document.getElementById('filesize').textContent =
+            (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
+    }
+});
 
-        async function generateCover() {
-            await processFile('/generate-cover/', 'cover-btn', 'cover-download');
-        }
+async function optimizeResume() {
+    await processFile('/optimize/', 'optimize-btn', 'resume-download');
+}
 
-        async function processFile(endpoint, btnId, downloadLinkId) {
-            if (!uploadedFile) return alert("Please upload your resume first");
+async function generateCover() {
+    await processFile('/generate-cover/', 'cover-btn', 'cover-download');
+}
 
-            const loading = document.getElementById('loading');
-            const success = document.getElementById('success');
-            const btn = document.getElementById(btnId);
+async function processFile(endpoint, btnId, downloadLinkId) {
 
-            loading.classList.remove('hidden');
-            success.classList.add('hidden');
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
+    if (!uploadedFile) return alert("Please upload your resume first");
 
-            const formData = new FormData();
-            formData.append('resume', uploadedFile);
+    const loading = document.getElementById('loading');
+    const success = document.getElementById('success');
+    const btn = document.getElementById(btnId);
 
-            const jobDesc = document.getElementById('job-desc').value.trim();
-            if (jobDesc) formData.append('job_description', jobDesc);
+    loading.classList.remove('hidden');
+    success.classList.add('hidden');
 
-            try {
-                const res = await fetch(endpoint, { method: 'POST', body: formData });
-                const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
 
-                document.getElementById(downloadLinkId).href = url;
-                document.getElementById(downloadLinkId).download = endpoint.includes('optimize') ? 
-                    'optimized_resume.pdf' : 'cover_letter.pdf';
-                document.getElementById(downloadLinkId).classList.remove('hidden');
+    const formData = new FormData();
+    formData.append('resume', uploadedFile);
 
-                loading.classList.add('hidden');
-                success.classList.remove('hidden');
-            } catch (err) {
-                alert("Something went wrong. Please try again.");
-                loading.classList.add('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = endpoint.includes('optimize') ? "Optimize Resume" : "Generate Cover Letter";
-            }
-        }
-    </script>
+    const jobDesc = document.getElementById('job-desc').value.trim();
+    if (jobDesc) formData.append('job_description', jobDesc);
+
+    try {
+        const res = await fetch(endpoint, { method: 'POST', body: formData });
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const link = document.getElementById(downloadLinkId);
+        link.href = url;
+        link.download = endpoint.includes('optimize')
+            ? 'optimized_resume.pdf'
+            : 'cover_letter.pdf';
+        link.classList.remove('hidden');
+
+        loading.classList.add('hidden');
+        success.classList.remove('hidden');
+
+    } catch (err) {
+        alert("Something went wrong. Please try again.");
+        loading.classList.add('hidden');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+</script>
+
 </body>
 </html>

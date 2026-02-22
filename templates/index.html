@@ -14,7 +14,7 @@ body { font-family: 'Montserrat', sans-serif; }
 .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 .hidden { display: none !important; }
 
-/* ===== NAVBAR (ENHANCED WITH MENU) ===== */
+/* ===== NAVBAR ===== */
 .navbar {
     position: fixed;
     top: 0;
@@ -40,7 +40,6 @@ body { font-family: 'Montserrat', sans-serif; }
     text-decoration: none;
 }
 .logo i { font-size: 24px; color: #fff; }
-
 .menu-wrapper {
     display: flex;
     align-items: center;
@@ -76,7 +75,7 @@ body { font-family: 'Montserrat', sans-serif; }
     position: relative;
     overflow: hidden;
     color: #fff;
-    margin-top: 0; /* fixed navbar overlays hero naturally */
+    margin-top: 0;
 }
 .banner {
     position: absolute;
@@ -145,9 +144,7 @@ body { font-family: 'Montserrat', sans-serif; }
 
 /* MOBILE HAMBURGER MENU */
 @media (max-width: 992px) {
-    .hamburger {
-        display: block;
-    }
+    .hamburger { display: block; }
     .nav-links {
         display: none;
         position: absolute;
@@ -161,12 +158,8 @@ body { font-family: 'Montserrat', sans-serif; }
         gap: 28px;
         box-shadow: 0 15px 30px rgba(0,0,0,0.25);
     }
-    .nav-links.active {
-        display: flex;
-    }
-    .menu-wrapper {
-        gap: 20px;
-    }
+    .nav-links.active { display: flex; }
+    .menu-wrapper { gap: 20px; }
 }
 
 /* ===== UPLOAD SECTION ===== */
@@ -319,24 +312,27 @@ footer {
 </style>
 </head>
 <body>
+
 <!-- NAVBAR WITH HAMBURGER MENU -->
 <div class="navbar">
     <div class="container">
         <div class="logo">
-            <i class="fa-solid fa-file-lines"></i>
-            ResuMy
+            <a href="/" style="color:white; text-decoration:none; display:flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-file-lines"></i> ResuMy
+            </a>
         </div>
-        
+       
         <div class="menu-wrapper">
             <!-- Desktop & Tablet Menu -->
             <ul class="nav-links">
-                <li><a href="#">Features</a></li>
-                <li><a href="#">How it Works</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Support</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/how-it-works">How it Works</a></li>
+                <li><a href="/pricing">Pricing</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/support">Support</a></li>
             </ul>
-            
+           
             <!-- Hamburger -->
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
@@ -367,7 +363,6 @@ footer {
                     </div>
                 </div>
             </div>
-
             <!-- Banner 2 -->
             <div id="top-banner-2" class="banner">
                 <div class="banner-inner-wrapper">
@@ -383,7 +378,7 @@ footer {
     </div>
 </section>
 
-<!-- UPLOAD SECTION (UNCHANGED) -->
+<!-- UPLOAD SECTION -->
 <section id="upload">
     <div class="container">
         <h2>Upload Your Resume</h2>
@@ -418,33 +413,27 @@ footer {
     </div>
 </section>
 
-<!-- PROFESSIONAL FOOTER (UNCHANGED) -->
+<!-- PROFESSIONAL FOOTER -->
 <footer>
     <div class="footer-wrapper">
         <div class="footer-top">
-            <!-- Logo -->
             <div class="footer-logo">
                 <i class="fa-solid fa-file-lines"></i>
                 ResuMy
             </div>
-
-            <!-- Contact Info -->
             <div class="footer-contact">
                 <p><i class="fa-solid fa-location-dot"></i> Mombasa, Kenya</p>
                 <p><i class="fa-solid fa-phone"></i> <a href="tel:+254740413951">+254 740 413 951</a></p>
             </div>
-
-            <!-- Quick Links -->
             <div class="footer-links">
-                <a href="#">Features</a>
-                <a href="#">How it Works</a>
-                <a href="#">Pricing</a>
-                <a href="#">Blog</a>
-                <a href="#">Support</a>
+                <a href="/">Home</a>
+                <a href="/features">Features</a>
+                <a href="/how-it-works">How it Works</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/blog">Blog</a>
+                <a href="/support">Support</a>
             </div>
         </div>
-
-        <!-- Bottom Bar -->
         <div class="footer-bottom">
             <p>&copy; 2026 ResuMy • All Rights Reserved</p>
             <p>Built by <strong>DIME SOLUTIONS</strong></p>
@@ -465,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInfo = document.getElementById('file-info');
     const filenameEl = document.getElementById('filename');
     const filesizeEl = document.getElementById('filesize');
+
     uploadArea.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) {
@@ -474,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filesizeEl.textContent = (uploadedFile.size / 1024 / 1024).toFixed(2) + " MB";
         }
     });
+
     async function optimizeResume() {
         await processFile('/optimize/', 'optimize-btn', 'resume-download');
     }
@@ -521,7 +512,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        
         if (navLinks.classList.contains('active')) {
             hamburgerIcon.classList.remove('fa-bars');
             hamburgerIcon.classList.add('fa-xmark');
@@ -531,7 +521,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Close mobile menu when a link is clicked
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');

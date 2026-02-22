@@ -20,7 +20,32 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request, "current_page": "home"})
+
+
+@app.get("/features", response_class=HTMLResponse)
+def features(request: Request):
+    return templates.TemplateResponse("features.html", {"request": request, "current_page": "features"})
+
+
+@app.get("/how-it-works", response_class=HTMLResponse)
+def how_it_works(request: Request):
+    return templates.TemplateResponse("how-it-works.html", {"request": request, "current_page": "how-it-works"})
+
+
+@app.get("/pricing", response_class=HTMLResponse)
+def pricing(request: Request):
+    return templates.TemplateResponse("pricing.html", {"request": request, "current_page": "pricing"})
+
+
+@app.get("/blog", response_class=HTMLResponse)
+def blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "current_page": "blog"})
+
+
+@app.get("/support", response_class=HTMLResponse)
+def support(request: Request):
+    return templates.TemplateResponse("support.html", {"request": request, "current_page": "support"})
 
 
 @app.post("/optimize/")

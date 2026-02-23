@@ -1,17 +1,20 @@
 from fastapi import FastAPI, Request, UploadFile, File, Form
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles 
 from fastapi.templating import Jinja2Templates
 import shutil
 import os
 from datetime import datetime
 
-# Resend for contact form
 import resend
 
 from pdf_utils import extract_text_from_pdf, generate_optimized_pdf, generate_cover_letter_pdf
 from llm_refiner import refine_resume, generate_cover_letter
 
 app = FastAPI(title="ResumeFlow")
+
+# Serve static files (favicon, images, etc.)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 UPLOAD_DIR = "uploads"
 OUTPUT_DIR = "output"
@@ -47,8 +50,8 @@ def support(request: Request):
     return templates.TemplateResponse("support.html", {"request": request})
 
 
-# ====================== CONTACT FORM (Resend) ======================
-@app.post("/send-message")          # ← No trailing slash (this fixes the error)
+# ====================== CONTACT FORM ======================
+@app.post("/send-message")
 async def send_message(
     name: str = Form(...),
     email: str = Form(...),

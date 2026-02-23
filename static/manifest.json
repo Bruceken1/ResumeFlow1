@@ -1,0 +1,26 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "resumeflow.up.railway",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "resumeflow.up.railway",
+  "start_url": "https://resumeflow.up.railway.app/",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://resumeflow.up.railway.app/static/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180",
+      "isSquare": true,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 180,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ]
+}
